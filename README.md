@@ -1,4 +1,4 @@
-# rubric-backend
+# ERD DIAGRAM
 
 
 ![alt text](https://github.com/nageshsai1999/rubric-backend/blob/main/ER%20diagram-1.drawio.png)
