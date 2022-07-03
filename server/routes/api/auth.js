@@ -6,10 +6,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
-
 const { check, validationResult } = require("express-validator");
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     //res.send("hi");
     const user = await User.findById(req.user.id).select(-"password");
@@ -18,7 +17,6 @@ router.get("/", auth, async (req, res) => {
     return res.status(500).send("server errpor");
   }
 });
-
 
 module.exports = router;
 router.post(
@@ -45,23 +43,25 @@ router.post(
           .json({ errors: [{ msg: "invalid user not found" }] });
       }
 
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
+      return res.json(user);
 
-      //jwt method
+      // const payload = {
+      //   user: {
+      //     id: user.id,
+      //   },
+      // };
 
-      jwt.sign(
-        payload,
-        process.env.jwtSecret,
-        { expiresIn: 360000 },
-        (err, token) => {
-          if (err) throw err;
-          return res.json({ token }); //it will gives a token
-        }
-      );
+      // //jwt method
+
+      // jwt.sign(
+      //   payload,
+      //   process.env.jwtSecret,
+      //   { expiresIn: 360000 },
+      //   (err, token) => {
+      //     if (err) throw err;
+      //     return res.json({ token }); //it will gives a token
+      //   }
+      // );
 
       //console.log(req.body);
       //res.send("user registered");

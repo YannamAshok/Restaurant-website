@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const auth = require("../../middleware/auth");
 
-console.log(process.env.jwtSecret)
+console.log(process.env.jwtSecret);
 router.post(
   "/",
   [
@@ -49,25 +49,28 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
       await user.save();
+
+      return res.json(user);
+
       //JASON WEB TOKEN
 
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
+      // const payload = {
+      //   user: {
+      //     id: user.id,
+      //   },
+      // };
 
-      //jwt method
+      // //jwt method
 
-      jwt.sign(
-        payload,
-        process.env.jwtSecret,
-        { expiresIn: 360000 },
-        (err, token) => {
-          if (err) throw err;
-          return res.json({ token }); //it will gives a token
-        }
-      );
+      // jwt.sign(
+      //   payload,
+      //   process.env.jwtSecret,
+      //   { expiresIn: 360000 },
+      //   (err, token) => {
+      //     if (err) throw err;
+      //     return res.json({ token }); //it will gives a token
+      //   }
+      // );
 
       //console.log(req.body);
       //res.send("user registered");
@@ -78,13 +81,8 @@ router.post(
   }
 );
 
-
-router.put("/",auth,async(req,res)=>{
-  const {
-    name,
-    email,
-    password
-  } = req.body;
+router.put("/", auth, async (req, res) => {
+  const { name, email, password } = req.body;
   const profileField = {};
   profileField.user = req.user.id;
   if (name) profileField.name = name;
@@ -102,16 +100,10 @@ router.put("/",auth,async(req,res)=>{
       await profile.save();
       return res.json(profile);
     }
-
   } catch (error) {
     res.status(500).send("server error");
-
   }
-
-})
-
-
-
+});
 
 router.delete("/", auth, async (req, res) => {
   try {
@@ -122,7 +114,5 @@ router.delete("/", auth, async (req, res) => {
     res.status(500).send("server error");
   }
 });
-
-
 
 module.exports = router;

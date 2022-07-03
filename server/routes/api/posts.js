@@ -7,21 +7,21 @@ const auth = require("../../middleware/auth");
 
 //posting a post
 router.post(
-  "/",
-  [auth, [check("text", "text is required").not().isEmpty()]],
+  "/:id",
+  [[check("text", "text is required").not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(errors)
+      console.log(errors);
       return res.status.json({ errors: errors.array });
     }
     try {
-      const user = await User.findById(req.user.id).select("-password");
+      const user = await User.findById(req.params.id).select("-password");
       const newPost = new Post({
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id,
+        user: req.params.id,
       });
       const post = await newPost.save();
       return res.json(post);
@@ -44,13 +44,8 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-
-
-router.put("/:id",auth,async(req,res)=>{
-  const {
-    name,
-    text,
-  } = req.body;
+router.put("/:id", auth, async (req, res) => {
+  const { name, text } = req.body;
 
   const postField = {};
   postField.user = req.user.id;
@@ -60,7 +55,7 @@ router.put("/:id",auth,async(req,res)=>{
   try {
     const post = await Post.findById(req.params.id);
 
-    console.log(post)
+    console.log(post);
     if (post) {
       post = await Post.findOneAndUpdate(
         { _id: req.params.id },
@@ -70,20 +65,17 @@ router.put("/:id",auth,async(req,res)=>{
       await post.save();
       return res.json(post);
     }
-
   } catch (error) {
     res.status(500).send("server error");
-
   }
-
-})
+});
 
 //get  post  by id
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
-    return res.json(post);
+    const posts = await Post.find({ user: req.params.id });
+    return res.json(posts);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("server error");
@@ -91,19 +83,16 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 //delete a post a by post id
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id",async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
-    // if (!post) {
-    //   return res.status(400).json({msg:"post not found"});
-    // }
-
-    if (post.user.toString() !== req.user.id) {
-      return res.status(400).json({ msg: "user is not authorized" });
+    if (!post) {
+      return res.status(400).json({msg:"post not found"});
     }
+    console.log(post)
     await post.remove();
-    return res.json({ msg: "post removed" });
+    return res.json(post);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("server error");

@@ -1,6 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import { fetchData } from "../Fetch";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+
+  const { name, email, password } = user;
+
+  const onChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    fetchData(
+      "/user",
+      {
+        name,
+        email,
+        password,
+      },
+      "POST"
+    )
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate("/dashboard");
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div class="container h-100">
       <div class="row align-items-center h-100">
@@ -8,16 +47,18 @@ export const Register = () => {
         <div class="col-md-4 h-100">
           <div class="card p-4 rounded mt-4">
             <h3>Register</h3>
-            <form >
+            <form onSubmit={onSubmit}>
               <div class="row mt-4">
                 <input
-                  type="text"
+                  type="name"
                   class="form-control"
-                  placeholder="Enter Username"
-                  name="username"
+                  placeholder="Enter username"
+                  name="name"
                   required=""
+                  onChange={onChange}
                 />
               </div>
+
               <div class="row mt-4">
                 <input
                   type="email"
@@ -25,6 +66,7 @@ export const Register = () => {
                   placeholder="Enter email"
                   name="email"
                   required=""
+                  onChange={onChange}
                 />
               </div>
               <div class="row mt-4">
@@ -33,6 +75,7 @@ export const Register = () => {
                   class="form-control"
                   placeholder="Enter password"
                   name="password"
+                  onChange={onChange}
                   required=""
                 />
               </div>

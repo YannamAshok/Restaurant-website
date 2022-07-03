@@ -1,6 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import { fetchData } from "../Fetch";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = user;
+
+  const onChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    fetchData(
+      "/auth",
+      {
+        email,
+        password,
+      },
+      "POST"
+    )
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate("/dashboard");
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div class="container ">
       <div class="row align-items-center ">
@@ -8,7 +45,7 @@ export const Login = () => {
         <div class="col-md-4">
           <div class="card p-4 rounded mt-4">
             <h3>Login</h3>
-            <form action="#" method="post">
+            <form action="#" method="post" onSubmit={onSubmit}>
               <div class="row mt-4">
                 <input
                   type="email"
@@ -16,6 +53,7 @@ export const Login = () => {
                   placeholder="Enter email"
                   name="email"
                   required=""
+                  onChange={onChange}
                 />
               </div>
               <div class="row mt-4">
@@ -25,6 +63,7 @@ export const Login = () => {
                   placeholder="Enter password"
                   name="password"
                   required=""
+                  onChange={onChange}
                 />
               </div>
               <div class="row mt-4">
