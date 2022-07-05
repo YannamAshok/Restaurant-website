@@ -43,12 +43,12 @@ export const Register = () => {
   return (
     <div class="container h-100">
       <div class="row align-items-center h-100">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 h-100">
+        <div class="col"></div>
+        <div class="col h-100">
           <div class="card p-4 rounded mt-4">
             <h3>Register</h3>
             <form onSubmit={onSubmit}>
-              <div class="row mt-4">
+              <div class="mt-4">
                 <input
                   type="name"
                   class="form-control"
@@ -59,7 +59,7 @@ export const Register = () => {
                 />
               </div>
 
-              <div class="row mt-4">
+              <div class="mt-4">
                 <input
                   type="email"
                   class="form-control"
@@ -69,7 +69,7 @@ export const Register = () => {
                   onChange={onChange}
                 />
               </div>
-              <div class="row mt-4">
+              <div class="mt-4">
                 <input
                   type="password"
                   class="form-control"
@@ -79,7 +79,7 @@ export const Register = () => {
                   required=""
                 />
               </div>
-              <div class="row mt-4">
+              <div class="mt-4">
                 <button
                   type="submit"
                   value="submit"
@@ -91,7 +91,7 @@ export const Register = () => {
             </form>
           </div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col"></div>
       </div>
     </div>
   );

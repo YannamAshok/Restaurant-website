@@ -67,6 +67,7 @@ export const Dashboard = () => {
       <Sidebar user={user} />
       <div id="content">
         <Navbar user={user} />
+        <div className="container">
         <div className="row" style={{ paddingTop: "20px" }}>
           <div className="col">
             <div className="posts d-flex justify-content-center">
@@ -79,36 +80,41 @@ export const Dashboard = () => {
                       <div className="posts">
                         <div className="card">
                           <div className="card-body">
+                            <div className="d-flex">
                             <img
                               src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp"
                               class="rounded-circle shadow-4"
-                              style={{ width: "50px" }}
+                              style={{ width: "70px" }}
                               alt="Avatar"
                             />
+                            <div className="text-start ms-2">
                            <h4> {post.name}</h4>
-                            <h5>
+                           <h5>
                             { moment(post.date).format("DD/MM/YYYY")}
-
                             </h5>
+                            </div>
+                           </div>
+                            <hr></hr>
                             <h5>{post.text}</h5>
-                            <row>
-                              <button className="btn btn-light">
-                                <i class="bi bi-heart-fill"></i>Like
+                            <hr></hr>
+                            <row className="d-flex justify-content-between">
+                              <button className="btn btn-light text-center">
+                                <i class="bi bi-heart-fill"></i> Like
                               </button>
                               <button class="btn btn-light">
                                 {" "}
                                 <i class="bi bi-pencil"></i>
-                                comment
+                                 Comment
                               </button>
                               <button class="btn btn-light">
                                 <i class="bi bi-share"></i>
-                                share
+                                 Share
                               </button>
                               <button class="btn btn-light" onClick={()=>{
                                 deletePost(post._id)
                               }}>
                               <i class="bi bi-trash-fill"></i>                                
-                                Delete
+                                 Delete
                               </button>
                             </row>
                           </div>
@@ -135,7 +141,7 @@ export const Dashboard = () => {
                 <div className="row">
                   <textarea
                     name="text"
-                    cols="80"
+                    cols="60"
                     rows="5"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
@@ -153,6 +159,7 @@ export const Dashboard = () => {
               </form>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

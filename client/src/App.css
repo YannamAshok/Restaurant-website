@@ -43,7 +43,6 @@
 }
 
 .post {
-  width: 50rem;
   margin-bottom: 30px;
 }
 .wrapper {
@@ -107,7 +106,7 @@ a:focus {
   border-bottom: 1px solid #47748b;
 }
 
-#sidebar ul p {
+/* #sidebar ul p {
   color: #fff;
   padding: 10px;
 }
@@ -120,7 +119,7 @@ a:focus {
 #sidebar ul li a:hover {
   color: #7386d5;
   background: #fff;
-}
+} */
 
 #sidebar ul li.active > a,
 a[aria-expanded="true"] {

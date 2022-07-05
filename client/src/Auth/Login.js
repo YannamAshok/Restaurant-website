@@ -39,14 +39,14 @@ export const Login = () => {
   };
 
   return (
-    <div class="container ">
-      <div class="row align-items-center ">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col"></div>
+        <div class="col">
           <div class="card p-4 rounded mt-4">
             <h3>Login</h3>
             <form action="#" method="post" onSubmit={onSubmit}>
-              <div class="row mt-4">
+              <div class=" mt-4">
                 <input
                   type="email"
                   class="form-control"
@@ -56,7 +56,7 @@ export const Login = () => {
                   onChange={onChange}
                 />
               </div>
-              <div class="row mt-4">
+              <div class="mt-4">
                 <input
                   type="password"
                   class="form-control"
@@ -66,7 +66,7 @@ export const Login = () => {
                   onChange={onChange}
                 />
               </div>
-              <div class="row mt-4">
+              <div class=" mt-4">
                 <button
                   type="submit"
                   value="submit"
@@ -78,7 +78,7 @@ export const Login = () => {
             </form>
           </div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col"></div>
       </div>
     </div>
   );
