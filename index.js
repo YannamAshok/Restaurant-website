@@ -1,15 +1,18 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
 const dbConnect = require("./config/db");
+const dotenv = require('dotenv');
 
+dotenv.config();
 
 dbConnect();
 
-app.use(express.json());
+app.use(express.json({ extended: false }));
 
 app.use(express.static("client/public"));
+
+
 app.get("/", (req, res) =>{
   res.sendFile(path.join(__dirname,'client', "public", "index.html"))
 }
@@ -32,5 +35,5 @@ app.use(function (req, res, next) {
   next();
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || "5000";
 app.listen(PORT, () => console.log(`server started on port no ${PORT}`));
