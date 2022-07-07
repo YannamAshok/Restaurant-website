@@ -1,5 +1,6 @@
 export async function fetchData(route = "", data = {}, methodType) {
-  const response = await fetch(`http://localhost:3000/api${route}`, {
+  const response = await fetch(`api${route}`, {
+  // const response = await fetch(`http://localhost:3000/api${route}`, {
     method: methodType,
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +16,8 @@ export async function fetchData(route = "", data = {}, methodType) {
 }
 
 export async function getData(route = "") {
-  const response = await fetch(`http://localhost:3000/api${route}`, {
+  const response = await fetch(`api${route}`, {
+  // const response = await fetch(`http://localhost:3000/api${route}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -29,7 +31,8 @@ export async function getData(route = "") {
 }
 
 export async function deltetData(route = "") {
-  const response = await fetch(`http://localhost:3000/api${route}`, {
+  const response = await fetch(`api${route}`, {
+  // const response = await fetch(`http://localhost:3000/api${route}`, {
     method:"DELETE"
   });
   if (response.ok) {
