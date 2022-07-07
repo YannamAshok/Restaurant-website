@@ -8,15 +8,17 @@ dotenv.config();
 
 dbConnect();
 
-app.use(express.json({ extended: false }));
+app.use(express.json());
+// app.use(express.json({ extended: false }));
 
-app.use(express.static("client/public"));
+app.use(express.static(__dirname + "/client/build"));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/client/build', 'index.html')));
 
-
-app.get("/", (req, res) =>{
-  res.sendFile(path.join(__dirname,'client', "public", "index.html"))
-}
-);
+// app.use(express.static("client/public"));
+// app.get("/", (req, res) =>{
+//   res.sendFile(path.join(__dirname,'client', "public", "index.html"))
+// }
+// );
 
 // mount routes
 app.use("/api/user", require("./server/routes/api/user"));
